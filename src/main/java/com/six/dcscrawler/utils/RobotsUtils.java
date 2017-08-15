@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
-import org.jsoup.Jsoup;
 
-import com.six.dcscrawler.AgentNames;
+import com.six.dcscrawler.worker.AgentNames;
+
+import org.jsoup.Jsoup;
 
 import crawlercommons.robots.BaseRobotRules;
 import crawlercommons.robots.SimpleRobotRules;
@@ -28,42 +29,33 @@ public class RobotsUtils {
 	private static BaseRobotRules FORBID_ALL_RULES = new crawlercommons.robots.SimpleRobotRules(
 			RobotRulesMode.ALLOW_NONE);
 
-	/**
-	 * User-agent: *
-	 * 
-	 * Allow: .htm$
-	 * 
-	 * Disallow: /
-	 * 
-	 * @param robotsTxt
-	 */
-	public RobotsUtils() {
-
-	}
-
 	private static BaseRobotRules parseRules(String url, byte[] robots, String contentType, String agentNames) {
 		SimpleRobotRulesParser parser = new SimpleRobotRulesParser();
 		BaseRobotRules baseRobotRules = parser.parseContent(url, robots, contentType, agentNames);
 		return baseRobotRules;
 	}
 
-	public static BaseRobotRules getRobotRules(String url, boolean allowForbidden) {
-		String robotsUrl = UrlUtils.getMainUrl(url) + "/robots.txt";
+	public static BaseRobotRules getRobotRules(boolean robotsEnable,String url, boolean allowForbidden) {
 		BaseRobotRules robotRules = null;
-		Connection conn = Jsoup.connect(robotsUrl);
-		try {
-			conn.followRedirects(true);
-			Response response = conn.execute();
-			if (response.statusCode() == 200) {
-				robotRules = parseRules(url.toString(), response.bodyAsBytes(), response.header("Content-Type"),
-						AgentNames.INSTANCE.toString());
-			} else if ((response.statusCode() == 403) && (!allowForbidden))
-				robotRules = FORBID_ALL_RULES;
-			else if (response.statusCode() >= 500) {
+		if(robotsEnable){
+			String robotsUrl = UrlUtils.getMainUrl(url) + "/robots.txt";
+			Connection conn = Jsoup.connect(robotsUrl);
+			try {
+				conn.followRedirects(true);
+				Response response = conn.execute();
+				if (response.statusCode() == 200) {
+					robotRules = parseRules(url.toString(), response.bodyAsBytes(), response.header("Content-Type"),
+							AgentNames.INSTANCE.toString());
+				} else if ((response.statusCode() == 403) && (!allowForbidden))
+					robotRules = FORBID_ALL_RULES;
+				else if (response.statusCode() >= 500) {
+					robotRules = EMPTY_RULES;
+				} else
+					robotRules = EMPTY_RULES; 
+			} catch (Exception t) {
 				robotRules = EMPTY_RULES;
-			} else
-				robotRules = EMPTY_RULES; 
-		} catch (Exception t) {
+			}
+		}else{
 			robotRules = EMPTY_RULES;
 		}
 		return robotRules;
@@ -71,10 +63,12 @@ public class RobotsUtils {
 
 	public static void main(String[] agrs) throws IOException {
 		String url = "https://github.com/robots.txt";
-		BaseRobotRules baseRobotRules = RobotsUtils.getRobotRules(url, false);
+		BaseRobotRules baseRobotRules = RobotsUtils.getRobotRules(true,url, false);
 		String newUrl = "https://github.com/ddddddd/ddd/tree/master";
 		boolean result = baseRobotRules.isAllowed(newUrl);
 		System.out.println("允许访问:" + result);
 		System.out.println("站点map:" + baseRobotRules.getSitemaps());
+		long visitDelay=baseRobotRules.getCrawlDelay()==BaseRobotRules.UNSET_CRAWL_DELAY?0:baseRobotRules.getCrawlDelay();
+		System.out.println("访问频率:" + visitDelay);
 	}
 }
