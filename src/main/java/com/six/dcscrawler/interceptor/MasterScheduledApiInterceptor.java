@@ -1,4 +1,4 @@
-package com.six.dcscrawler.web.interceptor;
+package com.six.dcscrawler.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.six.dcscrawler.web.service.ClusterManagerService;
+import com.six.dcscrawler.service.ClusterManagerService;
 import com.six.dcsnodeManager.Node;
 
 /**

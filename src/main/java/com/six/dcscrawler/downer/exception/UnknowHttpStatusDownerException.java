@@ -13,6 +13,10 @@ public class UnknowHttpStatusDownerException extends DownerException {
 	 */
 	private static final long serialVersionUID = 3389980017744878875L;
 
+	public UnknowHttpStatusDownerException() {
+		super(CrawlExceptionType.DOWNER_UNKNOW_HTTP_STATUS_EXCEPTION);
+	}
+	
 	public UnknowHttpStatusDownerException(String message) {
 		super(CrawlExceptionType.DOWNER_UNKNOW_HTTP_STATUS_EXCEPTION, message, null);
 	}

@@ -2,7 +2,6 @@ package com.six.dcscrawler.downer.exception;
 
 import com.six.dcscrawler.worker.exception.CrawlException;
 
-
 /**
  * @author six
  * @date 2016年8月26日 下午2:14:46 下载器异常：
@@ -24,6 +23,10 @@ public abstract class DownerException extends CrawlException {
 	 * 
 	 */
 	private static final long serialVersionUID = -7822200945702547159L;
+
+	public DownerException(String type) {
+		super(type);
+	}
 
 	public DownerException(String type, String message) {
 		super(type, message);

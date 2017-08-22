@@ -13,10 +13,10 @@ public class UnknowCrawlException extends CrawlException {
 	private static final long serialVersionUID = -5426964448545692680L;
 
 	public UnknowCrawlException(String message) {
-		super(CrawlExceptionType.WORKER_CRAWLER_UNKNOW_EXCEPTION, message);
+		super(CrawlExceptionType.CRAWLER_UNKNOW_EXCEPTION, message);
 	}
 
 	public UnknowCrawlException(String message, Throwable cause) {
-		super(CrawlExceptionType.WORKER_CRAWLER_UNKNOW_EXCEPTION, message, cause);
+		super(CrawlExceptionType.CRAWLER_UNKNOW_EXCEPTION, message, cause);
 	}
 }

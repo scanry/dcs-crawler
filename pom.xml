@@ -44,7 +44,27 @@
 		<BeanstalkClient>1.4.6</BeanstalkClient>
 	</properties>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/com.github.crawler-commons/crawler-commons -->
+		<!-- https://mvnrepository.com/artifact/org.apache.any23/apache-any23-core -->
+		<dependency>
+			<groupId>org.apache.any23</groupId>
+			<artifactId>apache-any23-core</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.18</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>six</groupId>
+			<artifactId>dcs-job</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>com.github.crawler-commons</groupId>
 			<artifactId>crawler-commons</artifactId>

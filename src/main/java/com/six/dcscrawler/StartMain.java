@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.six.dcscrawler.web.interceptor.BaseInterceptor;
-import com.six.dcscrawler.web.interceptor.MasterScheduledApiInterceptor;
-import com.six.dcscrawler.web.service.ClusterManagerService;
+import com.six.dcscrawler.interceptor.BaseInterceptor;
+import com.six.dcscrawler.interceptor.MasterScheduledApiInterceptor;
+import com.six.dcscrawler.service.ClusterManagerService;
 
 
 /**

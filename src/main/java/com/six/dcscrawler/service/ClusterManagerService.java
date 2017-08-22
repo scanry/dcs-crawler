@@ -1,4 +1,4 @@
-package com.six.dcscrawler.web.service;
+package com.six.dcscrawler.service;
 
 import com.six.dcsnodeManager.Node;
 

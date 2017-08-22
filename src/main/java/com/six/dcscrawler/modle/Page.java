@@ -2,10 +2,14 @@ package com.six.dcscrawler.modle;
 
 import java.util.Map;
 
+import org.jsoup.nodes.Document;
+
 import com.six.dcsjob.Index;
 import com.six.dcsjob.WorkSpaceData;
+import com.six.dcscrawler.downer.ContentType;
 
 import lombok.Data;
+import okhttp3.Headers;
 
 /**   
 * @author liusong  
@@ -17,14 +21,23 @@ public class Page implements WorkSpaceData{
 	
 	private String url;
 	private String referer;
-	private String finalRerer;
-	private int needDownload;
+	private String finalUrl;
+	private int needDownload=1;
+	private String title;
 	private String content;
 	private byte[] contentBytes;
 	private HttpMethod httpMethod;
 	private PostType postType;
+	private ContentType contentType;
 	private Map<String,Object> postData;
+	private Map<String,String> head;
 	private transient IpProxy ipProxy;
+	private transient int httpCode;
+	private transient Headers headers;
+	private String charset;
+	private transient String redirectedUrl;
+	private transient Document document;
+	private int retryCount;
 
 	@Override
 	public void setIndex(Index index) {

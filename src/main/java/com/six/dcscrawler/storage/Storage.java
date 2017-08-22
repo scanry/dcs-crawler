@@ -10,7 +10,7 @@ import java.util.Map;
 * 
 * 爬虫采集数据存储接口
 */
-public interface Storage {
+public interface Storage extends AutoCloseable{
 
 	/**
 	 * 爬虫采集数据存储接口

@@ -2,6 +2,7 @@ package com.six.dcscrawler.downer.exception;
 
 import com.six.dcscrawler.worker.exception.CrawlExceptionType;
 
+
 /** 
 * @author  作者 
 * @E-mail: 359852326@qq.com 
@@ -16,6 +17,10 @@ public class TimeoutDownerException extends DownerException{
 	private static final long serialVersionUID = -7313906660397137435L;
 
 
+	public TimeoutDownerException() {
+		super(CrawlExceptionType.DOWNER_TIMEOUT_EXCEPTION);
+	}
+	
 	public TimeoutDownerException(String message) {
 		super(CrawlExceptionType.DOWNER_TIMEOUT_EXCEPTION,message);
 	}

@@ -1,4 +1,4 @@
-package com.six.dcscrawler.web.interceptor;
+package com.six.dcscrawler.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

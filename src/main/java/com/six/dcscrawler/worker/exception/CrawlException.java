@@ -14,6 +14,9 @@ public abstract class CrawlException extends WorkerException{
 	 */
 	private static final long serialVersionUID = 6837835105330279257L;
 
+	public CrawlException(String type) {
+		super(type);
+	}
 	public CrawlException(String type, String message) {
 		super(type, message);
 	}
