@@ -5,8 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.six.dcscrawler.dao.TableNames;
-import com.six.dcsjob.Job;
-
+import com.six.dcsjob.model.Job;
 
 /**
  * @author 作者

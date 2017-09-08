@@ -3,7 +3,8 @@ package com.six.dcscrawler.dao.provider;
 import java.util.List;
 import java.util.Map;
 
-import com.six.dcsjob.Job;
+import com.six.dcsjob.model.Job;
+
 
 
 /**

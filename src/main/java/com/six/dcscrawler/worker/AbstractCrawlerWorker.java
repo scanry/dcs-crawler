@@ -15,21 +15,19 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.six.dcsjob.Job;
-import com.six.dcsjob.JobSnapshot;
-import com.six.dcsjob.JobSnapshotStatus;
+import com.six.dcsjob.model.JobSnapshot;
+import com.six.dcsjob.model.JobSnapshotStatus;
 import com.six.dcsjob.work.AbstractWorker;
 import com.six.dcsjob.work.exception.WorkerException;
-
-import com.six.dcscrawler.downer.Downer;
-import com.six.dcscrawler.downer.DownerManager;
-import com.six.dcscrawler.downer.DownerType;
-import com.six.dcscrawler.downer.exception.HttpStatus202DownloadException;
-import com.six.dcscrawler.downer.exception.HttpStatus403DownloadException;
-import com.six.dcscrawler.downer.exception.HttpStatus404DownloadException;
-import com.six.dcscrawler.downer.exception.HttpStatus502DownloadException;
-import com.six.dcscrawler.downer.exception.HttpStatus503DownloadException;
-import com.six.dcscrawler.downer.exception.HttpStatus504DownloadException;
+import com.six.dcscrawler.downloader.Downloader;
+import com.six.dcscrawler.downloader.DownloaderFactory;
+import com.six.dcscrawler.downloader.DownloaderType;
+import com.six.dcscrawler.downloader.exception.HttpStatus202DownloadException;
+import com.six.dcscrawler.downloader.exception.HttpStatus403DownloadException;
+import com.six.dcscrawler.downloader.exception.HttpStatus404DownloadException;
+import com.six.dcscrawler.downloader.exception.HttpStatus502DownloadException;
+import com.six.dcscrawler.downloader.exception.HttpStatus503DownloadException;
+import com.six.dcscrawler.downloader.exception.HttpStatus504DownloadException;
 import com.six.dcscrawler.utils.RobotsUtils;
 import com.six.dcscrawler.worker.exception.CrawlException;
 import com.six.dcscrawler.worker.exception.FoundIdentifyingCodeCrawlException;
@@ -92,7 +90,7 @@ public abstract class AbstractCrawlerWorker extends AbstractWorker<Page, CrawlWo
 	/** 目标站点 **/
 	private Site site;
 	/** 下载器 **/
-	private Downer downer;
+	private Downloader downer;
 	/** 页面缓存 **/
 	private PageCache pageCache = PageCache.DEFAULT_INSTANCE;
 	/** 抽取器 **/
@@ -128,7 +126,7 @@ public abstract class AbstractCrawlerWorker extends AbstractWorker<Page, CrawlWo
 	/** 最大重试次数 **/
 	private int pageRetryMaxCount = PAGE_MAX_RETRY_COUNT;
 	/** 页面过滤器 **/
-	private DownerType downerType;
+	private DownloaderType downerType;
 	/** 打开下载缓冲 **/
 	private boolean openDownCache;
 	/** 使用下载缓冲 **/
@@ -144,9 +142,6 @@ public abstract class AbstractCrawlerWorker extends AbstractWorker<Page, CrawlWo
 	/** 登录页面 **/
 	private Page loginPage;
 
-	public AbstractCrawlerWorker(Job job) {
-		super(job);
-	}
 
 	@Override
 	protected void initWorker() {
@@ -176,8 +171,11 @@ public abstract class AbstractCrawlerWorker extends AbstractWorker<Page, CrawlWo
 			pageCache = (PageCache) getJob().getParam(CrawlParameters.PAGE_CACHE_IMPL);
 		}
 		int downerTypeInt = getJob().getParamInt(CrawlParameters.DOWNER_TYPE, 1);
-		downerType = DownerType.valueOf(downerTypeInt);
-		downer = DownerManager.getInstance().newDowner(this, (int) downloadTimeout, downerType, useAgent, nextProxy());
+		downerType = DownloaderType.valueOf(downerTypeInt);
+		boolean headless=getJob().getParamBoolean(CrawlParameters.HEADLESS, false);
+		boolean loadImages=getJob().getParamBoolean(CrawlParameters.LOAD_IMAGES, true);
+		downer = DownloaderFactory.getInstance().newDowner(null, downerType,(int) downloadTimeout, 
+				useAgent, nextProxy(),headless,loadImages);
 		// 初始化内容抽取
 		String identifyingCodeCssArrayTemp = getJob().getParamStr(CrawlParameters.IDENTIFYING_CODE_CSS_ARRAY);
 		if (StringUtils.isNotBlank(identifyingCodeCssArrayTemp)) {

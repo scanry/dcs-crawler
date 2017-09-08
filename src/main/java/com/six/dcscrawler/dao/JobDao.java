@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 import com.six.dcscrawler.dao.provider.JobDaoProvider;
-import com.six.dcsjob.Job;
+import com.six.dcsjob.model.Job;
 
 /**
  * @author 作者

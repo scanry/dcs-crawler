@@ -1,6 +1,6 @@
 package com.six.dcscrawler.service;
 
-import com.six.dcsnodeManager.Node;
+import org.apache.ignite.cluster.ClusterNode;
 
 /**   
 * @author liusong  
@@ -13,5 +13,5 @@ public interface ClusterManagerService {
 	
 	boolean isMaster();
 	
-	Node getMaster();
+	ClusterNode getMaster();
 }

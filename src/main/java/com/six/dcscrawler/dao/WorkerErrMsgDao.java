@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import com.six.dcscrawler.dao.provider.WorkerErrMsgDaoProvider;
-import com.six.dcsjob.WorkerErrMsg;
+import com.six.dcsjob.model.WorkerErrMsg;
 
 
 /** 

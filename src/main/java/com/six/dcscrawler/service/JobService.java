@@ -2,7 +2,8 @@ package com.six.dcscrawler.service;
 
 import java.util.List;
 
-import com.six.dcsjob.Job;
+import com.six.dcsjob.model.Job;
+
 
 /**   
 * @author liusong  

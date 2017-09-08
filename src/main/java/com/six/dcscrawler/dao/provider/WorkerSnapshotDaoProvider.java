@@ -7,7 +7,7 @@ import org.apache.ibatis.jdbc.SQL;
 
 import com.six.dcscrawler.dao.BaseDao;
 import com.six.dcscrawler.dao.TableNames;
-import com.six.dcsjob.WorkerSnapshot;
+import com.six.dcsjob.model.WorkerSnapshot;
 
 
 /** 

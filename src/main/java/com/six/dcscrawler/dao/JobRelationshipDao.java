@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.six.dcsjob.JobRelationship;
+import com.six.dcsjob.model.JobRelationship;
+
 
 
 /** 

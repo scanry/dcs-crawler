@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import com.six.dcscrawler.dao.provider.JobSnapshotDaoProvider;
-import com.six.dcsjob.JobSnapshot;
+import com.six.dcsjob.model.JobSnapshot;
 
 
 /**

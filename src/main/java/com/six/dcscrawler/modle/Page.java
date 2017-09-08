@@ -4,9 +4,9 @@ import java.util.Map;
 
 import org.jsoup.nodes.Document;
 
-import com.six.dcsjob.Index;
-import com.six.dcsjob.WorkSpaceData;
-import com.six.dcscrawler.downer.ContentType;
+import com.six.dcscrawler.downloader.ContentType;
+import com.six.dcsjob.model.Index;
+import com.six.dcsjob.space.WorkSpaceData;
 
 import lombok.Data;
 import okhttp3.Headers;

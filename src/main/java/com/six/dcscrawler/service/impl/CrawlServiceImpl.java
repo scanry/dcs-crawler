@@ -8,12 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.six.dcscrawler.service.CrawlService;
 import com.six.dcscrawler.service.JobService;
-import com.six.dcsjob.Job;
-import com.six.dcsjob.executor.Executor;
-import com.six.dcsjob.executor.ExecutorImpl;
-import com.six.dcsjob.scheduler.Scheduler;
-import com.six.dcsjob.scheduler.SchedulerImpl;
-import com.six.dcsnodeManager.Node;
+import com.six.dcsjob.model.Job;
+import com.six.dcsjob.DcsJobManager;
+import com.six.dcsjob.DcsJobServiceConfig;
 
 /**   
 * @author liusong  
@@ -23,16 +20,13 @@ import com.six.dcsnodeManager.Node;
 @Service
 public class CrawlServiceImpl implements CrawlService,InitializingBean,DisposableBean{
 
-	private Scheduler scheduler ;
-	private Executor  executor;
+	private DcsJobManager dcsJobManager;
 	private JobService jobService;
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Node currentNode=new Node();
-		int trheads=0;
-		scheduler=new SchedulerImpl(currentNode);
-		executor=new ExecutorImpl(currentNode,trheads);
+		DcsJobServiceConfig dcsJobCf=new DcsJobServiceConfig();
+		dcsJobManager=new DcsJobManager(dcsJobCf);
 		loadScheduledJobs();
 	}
 	
@@ -40,67 +34,58 @@ public class CrawlServiceImpl implements CrawlService,InitializingBean,Disposabl
 	private void loadScheduledJobs(){
 		List<Job> scheduledJobs=jobService.getScheduledJob();
 		for(Job job:scheduledJobs){
-			scheduler.schedule(job);
+			dcsJobManager.schedule(job);
 		}
 	}
 	
 	@Override
 	public void execute(String jobName) {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.execute("", jobName);
 	}
 
 
 	@Override
 	public void suspend(String jobName) {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.suspend(jobName);
 	}
 
 
 	@Override
 	public void goOn(String jobName) {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.goOn(jobName);
 	}
 
 
 	@Override
 	public void stop(String jobName) {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.stop(jobName);
 	}
 
 
 	@Override
 	public void stopAll() {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.stopAll();
 	}
 
 
 	@Override
 	public void schedule(String jobName) {
-		// TODO Auto-generated method stub
-		
+		Job job=null;
+		dcsJobManager.schedule(job);
 	}
 
 
 	@Override
 	public void unSchedule(String jobName) {
-		// TODO Auto-generated method stub
-		
+		dcsJobManager.unschedule(jobName);
 	}
 	
 
 
 	@Override
 	public void destroy() throws Exception {
-		if(null!=executor){
-			executor.shutdown();
-		}
-		if(null!=scheduler){
-			scheduler.shutdown();
+		if(null!=dcsJobManager){
+			dcsJobManager.shutdown();
 		}
 	}
 

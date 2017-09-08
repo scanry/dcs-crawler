@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.six.dcscrawler.downer.ContentType;
+import com.six.dcscrawler.downloader.ContentType;
 
 /**
  * @author six

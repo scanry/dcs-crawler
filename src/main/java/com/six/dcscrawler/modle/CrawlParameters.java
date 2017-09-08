@@ -30,6 +30,8 @@ public interface CrawlParameters {
 	/** 下载器参数 **/
 	// 下载器类型
 	String DOWNER_TYPE = "downerType";
+	String HEADLESS="headless";
+	String LOAD_IMAGES="loadImages";
 	// 代理类型
 	String HTTP_PROXY_TYPE = "httpProxyType";
 	String DOWNLOAD_TIMEOUT = "downloadTimeout";

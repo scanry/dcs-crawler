@@ -9,7 +9,7 @@ import org.apache.ibatis.jdbc.SQL;
 import com.six.dcscrawler.dao.BaseDao;
 import com.six.dcscrawler.dao.TableNames;
 import com.six.dcscrawler.dao.WorkerErrMsgDao;
-import com.six.dcsjob.WorkerErrMsg;
+import com.six.dcsjob.model.WorkerErrMsg;
 
 
 /** 

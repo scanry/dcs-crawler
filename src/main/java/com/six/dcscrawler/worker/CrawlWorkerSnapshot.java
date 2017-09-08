@@ -1,6 +1,6 @@
 package com.six.dcscrawler.worker;
 
-import com.six.dcsjob.WorkerSnapshot;
+import com.six.dcsjob.model.WorkerSnapshot;
 
 /**   
 * @author liusong  

@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.UpdateProvider;
 
 import com.six.dcscrawler.dao.provider.JobParamDaoProvider;
-import com.six.dcsjob.JobParam;
+import com.six.dcsjob.model.JobParam;
 
 
 /** 

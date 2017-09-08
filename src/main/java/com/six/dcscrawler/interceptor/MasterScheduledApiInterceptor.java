@@ -7,7 +7,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.six.dcscrawler.service.ClusterManagerService;
-import com.six.dcsnodeManager.Node;
 
 /**
  * @author 作者
@@ -26,11 +25,6 @@ public class MasterScheduledApiInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		if (!clusterManager.isSingle()||!clusterManager.isMaster()) {
-			Node masterNode = clusterManager.getMaster();
-			response.sendRedirect(getMasterIndex(masterNode));
-			return false;
-		}
 		return true;
 	}
 
@@ -42,11 +36,6 @@ public class MasterScheduledApiInterceptor implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-	}
-
-	private static String getMasterIndex(Node masterNode) {
-		String indexUrl = "http://" + masterNode.getIp() + ":" + masterNode.getPort() + "/crawler";
-		return indexUrl;
 	}
 
 }

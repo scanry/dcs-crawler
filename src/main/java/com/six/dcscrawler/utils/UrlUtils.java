@@ -2,9 +2,6 @@ package com.six.dcscrawler.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import crawlercommons.filters.URLFilter;
-import crawlercommons.filters.basic.BasicURLNormalizer;
-
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,8 +45,6 @@ public class UrlUtils {
 	 */
 	public static String paserUrl(String baseUrl, String srcUrl, String findUrl) {
 		Objects.requireNonNull(findUrl);
-		URLFilter URLFilter=new BasicURLNormalizer();
-		findUrl=URLFilter.filter(findUrl);
 		// 如果是http:// 或者https://开头的 直接返回 findUrl
 		for (String startHead : notNeedDoUrl) {
 			if (findUrl.startsWith(startHead)) {
@@ -104,6 +99,14 @@ public class UrlUtils {
 
 	public static String encodeIllegalCharacterInUrl(String url) {
 		return url.replace(" ", "%20");
+	}
+	
+	public static String urlEncoder(String str) {
+		try {
+			return URLEncoder.encode(str, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static String getMainUrl(String url) {
